@@ -7,5 +7,18 @@
     word-wrap: break-word;
 
     text-align: center;
-    line-height: 28px;
+    line-height: 24px;
+}
+
+.coverTitleCoalize {
+    line-height: 22px;
+    font-weight: 500;
+    color: #1F2933!important;
+    font-size: 20px;
+    width: 155;
+    text-align: left;
+    word-wrap: break-word;
+    position: absolute;
+    left: 24;
+    bottom: 24
 }

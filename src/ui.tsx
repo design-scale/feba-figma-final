@@ -95,7 +95,9 @@ function Plugin(props: { greeting: string }) {
     value: 'Assinafy'
   },{
     value: 'Cobre Fácil'
-  } ];
+  },{
+    value: 'Coalize'
+  }  ];
 
   function handleClick(event: JSX.TargetedEvent<HTMLButtonElement>) {
     console.log(event);

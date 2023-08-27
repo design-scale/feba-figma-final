@@ -2,6 +2,9 @@
     import { JSX, h } from 'preact';
     import { useState } from 'preact/hooks';
     import styles from '../styles.css';
+    import LogotypeAbrahao from '../assets/LogoTypeAbrahao';
+    import LogotypeCoalize from '../assets/LogoTypeCoalizee';
+import CoalizeGrafismo from '../assets/CoalizeGrafismo';
 
     type CardProps = {
         children: any
@@ -10,17 +13,22 @@
     }
 
     function Card ({children, investida, inputValue}: CardProps){
-        const backgroundColor = (inputValue.length > 0) ? (investida === 'Abrahão' ? '#CB001F' : 'blue') : '#F5F5F5'
+        const isAbrahao = investida === 'Abrahão'
+        const isCoalize = investida === 'Coalize'
+        const isTyping = inputValue.length > 0
+        const backgroundColor = (inputValue.length > 0) ? (isAbrahao ? '#CB001F' : isCoalize ? '#F5F7FA': 'blue') : '#F5F5F5'
        
-        function styleAbrahao(){
-            return {backgroundColor, marginBottom: 0 , borderRadius: '8px', height: 157, display: 'flex', alignItems: 'center', justifyContent: 'center'} 
+        function styleCover(){
+            return { overflow: 'hidden', backgroundColor, marginBottom: 0 , borderRadius: '8px', height: 152, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative'} 
         }
 
         return (
-            <div style={styleAbrahao()}>
-            <span className={inputValue < 1 ? '': styles.coverTitleAbrahao} style={{color: '#AAAAAA'}}>{children} </span>
+            <div style={styleCover()}>
+                {isTyping && (isAbrahao ? <LogotypeAbrahao />: isCoalize ? <LogotypeCoalize/> :  <LogotypeCoalize/>)}
+                {isTyping && (isCoalize && <CoalizeGrafismo/>)}
+            <span className={isTyping ? (isCoalize? styles.coverTitleCoalize : isAbrahao? styles.coverTitleAbrahao: ''  ) : ''} style={{color: '#AAAAAA'}}>{children} </span>
 
-        </div>
+            </div>
         )
     }
 
