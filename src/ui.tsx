@@ -2,7 +2,8 @@ import { render, Container, Text, VerticalSpace, Button, Dropdown, DropdownOptio
 import { JSX, h } from 'preact';
 import {Modal} from './components/Modal/modal'
 import { useState } from 'preact/hooks';
-import style from './styles.css';
+
+
 import Card from './components/Card'
 
 function Plugin(props: { greeting: string }) {

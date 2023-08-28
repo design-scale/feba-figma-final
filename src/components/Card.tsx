@@ -5,7 +5,12 @@
     import LogotypeAbrahao from '../assets/LogoTypeAbrahao';
     import LogotypeCoalize from '../assets/LogoTypeCoalizee';
     import CoalizeGrafismo from '../assets/CoalizeGrafismo';
-import Empty from '../assets/Empty';
+    import Empty from '../assets/Empty';
+    import magic from '../magic-master/dist/magic.css'
+    import '../magic-master/dist/magic.min.css'
+
+    interface MagicAnimationProps {}
+    interface MagicAnimationState {}
 
     type CardProps = {
         children: any
@@ -29,7 +34,7 @@ import Empty from '../assets/Empty';
                 {isTyping && (isAbrahao ? <LogotypeAbrahao />: isCoalize ? <LogotypeCoalize/> :  <LogotypeCoalize/>)}
                 {isTyping && (isCoalize && <CoalizeGrafismo/>)}
                 {(inputValue.length < 1) && <Empty/>}
-            <span className={isTyping ? (isCoalize? styles.coverTitleCoalize : isAbrahao? styles.coverTitleAbrahao: ''  ) : ''} style={{color: '#AAAAAA', bottom: 32, position: 'absolute'}}>{children} </span>
+            <span className={isTyping ? (isCoalize? styles.coverTitleCoalize : isAbrahao? styles.coverTitleAbrahao: ''  ) : '' } style={{color: '#AAAAAA', bottom: 32, position: 'absolute'}}>{children} </span>
 
             </div>
         )
