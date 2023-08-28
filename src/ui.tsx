@@ -4,17 +4,12 @@ import { useState } from 'preact/hooks';
 import style from './styles.css';
 import Card from './components/Card'
 
-
-
-
-
-
 function Plugin(props: { greeting: string }) {
 
   
   const modalSize = {
     padding: '12px',
-    width: '290px'
+    width: '240'
   };
 
   function modalSocialMedia() {
@@ -22,10 +17,10 @@ function Plugin(props: { greeting: string }) {
       <div style={modalSize}>
       <Stack space='medium'>
         <Text style={{fontWeight: 600, paddingBottom: 8, marginTop: 4}}>Pages</Text>
-        <Toggle onChange={handleChangePage} value={pageValue}>
+        <Toggle onChange={handleMoodboardToggle} value={isMoodboardEnabled}>
           <Text>Moodboard</Text>
         </Toggle>
-        <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+        <Toggle onChange={handleDesignToggle} value={isDesignEnabled} > 
           <Text>Design</Text>
         </Toggle>
       </Stack>
@@ -38,19 +33,19 @@ function Plugin(props: { greeting: string }) {
       <div style={modalSize}>
       <Stack space='medium'>
       <Text style={{fontWeight: 600, paddingBottom: 8, marginTop: 4}}>Pages</Text>
-      <Toggle onChange={handleChangePage} value={pageValue}>
+            <Toggle onChange={handleBenchmarkToggle} value={isBenchmarkEnabled}>
               <Text>Benchmark</Text>
             </Toggle>
-            <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+            <Toggle onChange={handleWireframeToggle} value={isWireframeEnabled} > 
               <Text>Wireframe</Text>
             </Toggle>
-            <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+            <Toggle onChange={handleDesignToggle} value={isDesignEnabled} > 
               <Text>Design</Text>
             </Toggle>
-            <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+            <Toggle onChange={handleExplorationToggle} value={isExplorationEnabled} > 
               <Text>Exploration</Text>
             </Toggle>
-            <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+            <Toggle onChange={handleHandoofToggle} value={isHandoofEnabled} > 
               <Text>Hand-off</Text>
             </Toggle>
       </Stack>
@@ -63,19 +58,19 @@ function Plugin(props: { greeting: string }) {
       <div style={modalSize}>
       <Stack space='medium'>
       <Text style={{fontWeight: 600, paddingBottom: 8, marginTop: 4}}>Pages</Text>
-         <Toggle onChange={handleChangePage} value={pageValue}>
+         <Toggle onChange={handleBenchmarkToggle} value={isDiscoveryEnabled}>
            <Text>🔎 Benchmark</Text>
          </Toggle>
-         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+         <Toggle onChange={handleWireframeToggle} value={isWireframeEnabled} > 
            <Text>🌐 Wireframe</Text>
          </Toggle>
-         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+         <Toggle onChange={handleDesignToggle} value={isDesignEnabled} > 
            <Text>↪ 🎨 Design</Text>
          </Toggle>
-         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+         <Toggle onChange={handleExplorationToggle} value={isExplorationEnabled} > 
            <Text>↪💡 Exploration</Text>
          </Toggle>
-         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+         <Toggle onChange={handleHandoofToggle} value={isHandoofEnabled} > 
            <Text>🗂 Hand-off</Text>
          </Toggle>
       </Stack>
@@ -85,20 +80,60 @@ function Plugin(props: { greeting: string }) {
 
   //TOGGLE
 
-  // Discovery
-  const [pageValue, setPageValue] = useState<boolean>(true);
-  function handleChangePage(event: JSX.TargetedEvent<HTMLInputElement>) {
+  // Design
+  const [isDiscoveryEnabled, setIsDiscoveryEnabled] = useState<boolean>(true);
+  function handleDiscoveryToggle(event: JSX.TargetedEvent<HTMLInputElement>) {
     const newValue = event.currentTarget.checked;
     console.log(newValue);
-    setPageValue(newValue);
+    setIsDesignEnabled(newValue);
   }
 
-    // Design
-    const [designPageValue, setDesignPageValue] = useState<boolean>(true);
-    function handleChangeDesignPage(event: JSX.TargetedEvent<HTMLInputElement>) {
+  // Design
+  const [isDesignEnabled, setIsDesignEnabled] = useState<boolean>(true);
+  function handleDesignToggle(event: JSX.TargetedEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.checked;
+    console.log(newValue);
+    setIsDesignEnabled(newValue);
+  }
+
+  // Benchmark
+  const [isBenchmarkEnabled, setIsBenchmarkEnabled] = useState<boolean>(true);
+  function handleBenchmarkToggle(event: JSX.TargetedEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.checked;
+    console.log(newValue);
+    setIsBenchmarkEnabled(newValue);
+  }
+
+  // Wireframe
+  const [isWireframeEnabled, setIsWireframeEnabled] = useState<boolean>(true);
+  function handleWireframeToggle(event: JSX.TargetedEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.checked;
+    console.log(newValue);
+    setIsWireframeEnabled(newValue);
+  }
+
+  // Handoof
+  const [isHandoofEnabled, setIsHandoofEnabled] = useState<boolean>(true);
+  function handleHandoofToggle(event: JSX.TargetedEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.checked;
+    console.log(newValue);
+    setIsHandoofEnabled(newValue);
+  }
+
+  // Exploration
+  const [isExplorationEnabled, setIsExplorationEnabled] = useState<boolean>(true);
+  function handleExplorationToggle(event: JSX.TargetedEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.checked;
+    console.log(newValue);
+    setIsExplorationEnabled(newValue);
+  }
+
+    // Moodboard
+    const [isMoodboardEnabled, setIsMoodboardEnabled] = useState<boolean>(true);
+    function handleMoodboardToggle(event: JSX.TargetedEvent<HTMLInputElement>) {
       const newValue = event.currentTarget.checked;
       console.log(newValue);
-      setDesignPageValue(newValue);
+      setIsMoodboardEnabled(newValue);
     }
   
 
@@ -209,7 +244,7 @@ function Plugin(props: { greeting: string }) {
       </Stack>
     </Container>
     
-    <Modal closeButtonPosition="left" noTransition onCloseButtonClick={handleCloseButtonClick} open={open} position="right" title={`Editar Pages (${value})`}>
+    <Modal closeButtonPosition="left" noTransition onCloseButtonClick={handleCloseButtonClick} open={open} position="left" title={`Editar Pages (${value})`}>
        {value === 'Social Media'? modalSocialMedia() : value === 'Landing Page' ?  modalLandingPage(): modalEmail()}
       </Modal>
 
