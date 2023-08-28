@@ -1,5 +1,6 @@
-import { render, Container, Text, VerticalSpace, Modal, Button, Dropdown, DropdownOption, Columns, IconButton, IconAdjust32, Divider, Textbox, Stack, useInitialFocus, IconChevronDown32, Toggle } from '@create-figma-plugin/ui';
+import { render, Container, Text, VerticalSpace, Button, Dropdown, DropdownOption, Columns, IconButton, IconAdjust32, Divider, Textbox, Stack, useInitialFocus, IconChevronDown32, Toggle, IconArrowLeft16, IconArrowLeftRight32, IconChevronLeft32 } from '@create-figma-plugin/ui';
 import { JSX, h } from 'preact';
+import {Modal} from './components/Modal/modal'
 import { useState } from 'preact/hooks';
 import style from './styles.css';
 import Card from './components/Card'
@@ -9,7 +10,7 @@ function Plugin(props: { greeting: string }) {
   
   const modalSize = {
     padding: '12px',
-    width: '240'
+    width: '290'
   };
 
   function modalSocialMedia() {
@@ -226,7 +227,7 @@ function Plugin(props: { greeting: string }) {
     </Card>
       
 
-   
+
       </Stack>
       
     </Columns>
@@ -238,11 +239,15 @@ function Plugin(props: { greeting: string }) {
     <Container space='small'>
       <Stack space='small'>
 
-    
+      
           <Textbox {...useInitialFocus()} onInput={handleInput} placeholder="Insira um título para começar" value={inputValue} variant="border"/>
-          <Button fullWidth onClick={onCreate}>Começar agora</Button>
+          {inputValue.length < 1 
+              ? <Button fullWidth onClick={onCreate} disabled >Começar agora</Button> 
+              :<Button fullWidth onClick={onCreate} >Começar agora</Button> 
+          }
       </Stack>
     </Container>
+ 
     
     <Modal closeButtonPosition="left" noTransition onCloseButtonClick={handleCloseButtonClick} open={open} position="left" title={`Editar Pages (${value})`}>
        {value === 'Social Media'? modalSocialMedia() : value === 'Landing Page' ?  modalLandingPage(): modalEmail()}

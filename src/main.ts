@@ -12,7 +12,12 @@ export default function () {
 figma.ui.onmessage = (msg) => {
   if (msg.type === 'create-rectangles') {
     createRectangles(msg.count);
+    console.log('testezin _______PASSOU!')
+    
   }
+  
 
-  figma.closePlugin();
+  setTimeout(() => {
+    figma.closePlugin();
+  }, 3000); // 5000 milliseconds = 5 seconds delay
 };
