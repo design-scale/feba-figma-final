@@ -1,4 +1,4 @@
-import { render, Container, Text, VerticalSpace, Button, Checkbox, Dropdown, DropdownOption, Columns, IconButton, IconPlus32, IconAdjust32, Divider, Textbox, Stack, useInitialFocus, Modal, IconChevronDown32, Toggle } from '@create-figma-plugin/ui';
+import { render, Container, Text, VerticalSpace, Modal, Button, Dropdown, DropdownOption, Columns, IconButton, IconAdjust32, Divider, Textbox, Stack, useInitialFocus, IconChevronDown32, Toggle } from '@create-figma-plugin/ui';
 import { JSX, h } from 'preact';
 import { useState } from 'preact/hooks';
 import style from './styles.css';
@@ -7,14 +7,19 @@ import Card from './components/Card'
 
 
 
+
+
 function Plugin(props: { greeting: string }) {
 
   
-
+  const modalSize = {
+    padding: '12px',
+    width: '290px'
+  };
 
   function modalSocialMedia() {
     return (
-      <div style={style}>
+      <div style={modalSize}>
       <Stack space='medium'>
         <Text style={{fontWeight: 600, paddingBottom: 8, marginTop: 4}}>Pages</Text>
         <Toggle onChange={handleChangePage} value={pageValue}>
@@ -23,6 +28,56 @@ function Plugin(props: { greeting: string }) {
         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
           <Text>Design</Text>
         </Toggle>
+      </Stack>
+        </div>
+    )
+  }
+
+  function modalLandingPage(){
+    return (
+      <div style={modalSize}>
+      <Stack space='medium'>
+      <Text style={{fontWeight: 600, paddingBottom: 8, marginTop: 4}}>Pages</Text>
+      <Toggle onChange={handleChangePage} value={pageValue}>
+              <Text>Benchmark</Text>
+            </Toggle>
+            <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+              <Text>Wireframe</Text>
+            </Toggle>
+            <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+              <Text>Design</Text>
+            </Toggle>
+            <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+              <Text>Exploration</Text>
+            </Toggle>
+            <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+              <Text>Hand-off</Text>
+            </Toggle>
+      </Stack>
+        </div> 
+    )
+  }
+
+  function modalEmail() {
+    return (
+      <div style={modalSize}>
+      <Stack space='medium'>
+      <Text style={{fontWeight: 600, paddingBottom: 8, marginTop: 4}}>Pages</Text>
+         <Toggle onChange={handleChangePage} value={pageValue}>
+           <Text>🔎 Benchmark</Text>
+         </Toggle>
+         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+           <Text>🌐 Wireframe</Text>
+         </Toggle>
+         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+           <Text>↪ 🎨 Design</Text>
+         </Toggle>
+         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+           <Text>↪💡 Exploration</Text>
+         </Toggle>
+         <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
+           <Text>🗂 Hand-off</Text>
+         </Toggle>
       </Stack>
         </div>
     )
@@ -58,10 +113,6 @@ function Plugin(props: { greeting: string }) {
     console.log(event);
     setOpen(false);
   }
-  const style = {
-    padding: '12px',
-    width: '240px'
-  };
 
 
   // INPUT
@@ -158,27 +209,8 @@ function Plugin(props: { greeting: string }) {
       </Stack>
     </Container>
     
-    <Modal onCloseButtonClick={handleCloseButtonClick} open={open} position="left" title={`Editar Pages (${value})`}>
-       {value === 'Social Media'? modalSocialMedia() : value === 'Landing Page' ?  <div style={style}>
-      <Stack space='medium'>
-        <Toggle onChange={handleChangePage} value={pageValue}>
-          <Text>Discovery</Text>
-        </Toggle>
-        <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
-          <Text>Design</Text>
-        </Toggle>
-      </Stack>
-        </div> : 
-         <div style={style}>
-         <Stack space='medium'>
-           <Toggle onChange={handleChangePage} value={pageValue}>
-             <Text>Discovery</Text>
-           </Toggle>
-           <Toggle onChange={handleChangeDesignPage} value={designPageValue} > 
-             <Text>Design</Text>
-           </Toggle>
-         </Stack>
-           </div>}
+    <Modal closeButtonPosition="left" noTransition onCloseButtonClick={handleCloseButtonClick} open={open} position="right" title={`Editar Pages (${value})`}>
+       {value === 'Social Media'? modalSocialMedia() : value === 'Landing Page' ?  modalLandingPage(): modalEmail()}
       </Modal>
 
       <VerticalSpace space='medium' />

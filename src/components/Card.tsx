@@ -16,7 +16,7 @@ import CoalizeGrafismo from '../assets/CoalizeGrafismo';
         const isAbrahao = investida === 'Abrahão'
         const isCoalize = investida === 'Coalize'
         const isTyping = inputValue.length > 0
-        const backgroundColor = (inputValue.length > 0) ? (isAbrahao ? '#CB001F' : isCoalize ? '#F5F7FA': 'blue') : '#F5F5F5'
+        const backgroundColor = (inputValue.length > 0) ? (isAbrahao ? '#CB001F' : isCoalize ? '#F5F7FA': 'blue') : 'rgba(126, 126, 126, 0.12)'
        
         function styleCover(){
             return { overflow: 'hidden', backgroundColor, marginBottom: 0 , borderRadius: '8px', height: 152, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative'} 
