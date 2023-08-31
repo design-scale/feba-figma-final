@@ -1,4 +1,57 @@
 
+.dnone {
+  display: none;
+}
+
+.sucess { 
+  position: absolute;
+  top: -90px;
+  right: 65px;
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  animation: hideSuccess 0.5s ease-in-out 1s forwards;
+}
+
+@keyframes hideSuccess {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+.generate {
+  margin-top: 12px;
+  font-size: 10px;
+  width: 146px;
+  word-wrap: break-word;
+  color: #9A9A9A;
+  text-align: center;
+}
+
+.loader01 {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #BDBDBD;
+  border-right-color: transparent;
+  border-radius: 50%;
+  position: relative;
+  animation: loader-rotate 1s linear infinite;
+  top: 50%;
+  margin: -28px auto 0;
+ }
+
+ .lottie { 
+  position: absolute;
+  top: -158;
+  right: 88;
+ }
+
+ @keyframes loader-rotate {
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } }
 
 .coverTitleAbrahao{
     color: white!important;
@@ -21,4 +74,119 @@
     position: absolute;
     left: 24;
     bottom: 24
+}
+
+.title-before-preview{
+  position: absolute;
+  color: #4F4F4F!important;
+  word-wrap: break-word;
+  width: 146px;
+  text-align: center;
+  bottom: 12px;
+  line-height: 14px;
+}
+
+
+.animacao {
+  -webkit-animation-name: swashIn;
+  animation-name: swashIn;
+  animation: swashIn 1ms forwards;
+
+}
+
+@-webkit-keyframes swashIn {
+ 
+}
+@keyframes swashIn {
+  0% {
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(.8, .8);
+  }
+  
+  100% {
+    opacity: 1;
+    transform-origin: 50% 50%;
+    transform: scale(1, 1);
+  }
+}
+
+.hidden {
+  opacity: 0;
+  animation: reduzir .05s ease-out reverse; /* Aumente a duração total para 6 segundos (1s redução + 5s opacidade 0) */
+}
+
+@keyframes reduzir {
+  0% {
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(0, 0);
+  }
+
+  16.666% { /* Passaram-se 1 segundo (1 / 6 = 0.16667) */
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform-origin: 50% 50%;
+    transform: scale(1, 1);
+  }
+}
+
+
+
+
+
+
+
+/* CHECK ANIMATION*/
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 1.2s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 5;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation:  ease-in-out 1s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 1s cubic-bezier(0.65, 0, 0.45, 1) 1.5s forwards;
+}
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
 }

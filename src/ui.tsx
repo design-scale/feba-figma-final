@@ -2,11 +2,40 @@ import { render, Container, Text, VerticalSpace, Button, Dropdown, DropdownOptio
 import { JSX, h } from 'preact';
 import {Modal} from './components/Modal/modal'
 import { useState } from 'preact/hooks';
-
-
+import styles from './styles.css'
+import { useEffect } from 'preact/hooks';
 import Card from './components/Card'
+import lottie from 'react-lottie'
+import LottieControl from './components/Example';
+
+
 
 function Plugin(props: { greeting: string }) {
+
+  const [pageNames, setPageNames] = useState([]);
+
+  useEffect(() => {
+    // Definindo o evento para receber mensagens do plugin
+    onmessage = (event) => {
+      if (event.data.pluginMessage.type === 'update-page-names') {
+        setPageNames(event.data.pluginMessage.pageNames);
+      }
+    };
+
+    // Chamando o plugin para obter os nomes das páginas
+    parent.postMessage({ pluginMessage: { type: 'get-page-names' } }, '*');
+  }, []);
+
+  // AQUI PRA CIMA É CAÔ
+
+ 
+  const [playAnimation, setPlayAnimation] = useState(false);
+
+  const handleButtonClick = () => {
+    setPlayAnimation(true); // Define o estado para reproduzir a animação
+  };
+
+
 
   
   const modalSize = {
@@ -140,7 +169,7 @@ function Plugin(props: { greeting: string }) {
   
 
 
-  // MODAL
+  // Modal - Open & Close Buttons
   const [open, setOpen] = useState<boolean>(false);
   function handleOpenButtonClick(event: JSX.TargetedMouseEvent<HTMLButtonElement>) {
     console.log(event);
@@ -152,7 +181,7 @@ function Plugin(props: { greeting: string }) {
   }
 
 
-  // INPUT
+  // Input - "Insira um título para começar"
   const [inputValue, setInputValue] = useState<string>('');
   function handleInput(event: JSX.TargetedEvent<HTMLInputElement>) {
     const newValue = event.currentTarget.value;
@@ -163,9 +192,18 @@ function Plugin(props: { greeting: string }) {
   const onCreate = () => {
     const parsedCount = parseInt(inputValue, 10);
     parent.postMessage({ pluginMessage: { type: 'create-rectangles', count: parsedCount } }, '*');
+    // Disparar função aqui
+    setIsHidden(true)
+    setTimeout(() => {
+      handleButtonClick()
+    }, 1000)
+    
   };
 
-  // SELECT
+  // 
+
+  // Ddrop Down - 'Landing Page' | 'Email' | 'Social Media'
+
   const [value, setValue] = useState<string>('Landing Page');
   const [investida, setInvestida] = useState<string>('Abrahão');
 
@@ -203,6 +241,11 @@ function Plugin(props: { greeting: string }) {
     console.log(newValue);
     setInvestida(newValue);
   }
+  function hiddenOnClick(value = false) { 
+    return value
+  }
+
+  const [isHidden, setIsHidden] = useState(false)
 
   
   return (
@@ -223,8 +266,8 @@ function Plugin(props: { greeting: string }) {
     <Container space='small'>
       <Columns space="extraSmall" style={{padding: "16px 0px"}} >
       <Stack space="extraSmall">
-      <Card investida={investida} inputValue={inputValue}>
-    {(inputValue.length < 1)? 'Insira um título para começar': inputValue } 
+      <Card investida={investida} inputValue={inputValue} className={isHidden ? styles.hidden : ''}>
+    {(inputValue.length < 1)? 'Gerar capa e Pages automaticamente': inputValue } 
     </Card>
       
 
@@ -238,14 +281,28 @@ function Plugin(props: { greeting: string }) {
 
 
     <Container space='small'>
-      <Stack space='small'>
+
+      <Stack space='small' style={{position: 'relative'}}>
+      <div className={styles.lottie}>
+      <LottieControl playAnimation={playAnimation}/>
+        </div>
+      <div className={isHidden ? styles.sucess : styles.dnone}>
+        <div className={styles.loader01}>
+        </div>
+        <span className={styles.generate}>Gerando capa e estrutura de Pages automaticamente...</span>
+        
+      </div>
 
       
-          <Textbox {...useInitialFocus()} onInput={handleInput} placeholder="Insira um título para começar" value={inputValue} variant="border"/>
+          {isHidden ? <Textbox {...useInitialFocus()} onInput={handleInput} disabled placeholder="Insira um título para começar" value={inputValue} variant="border"/> : <Textbox {...useInitialFocus()} onInput={handleInput} placeholder="Insira um título para começar" value={inputValue} variant="border"/>}
           {inputValue.length < 1 
               ? <Button fullWidth onClick={onCreate} disabled >Começar agora</Button> 
-              :<Button fullWidth onClick={onCreate} >Começar agora</Button> 
+              : (isHidden ? <Button fullWidth>Gerando capa e Pages...</Button> : <Button fullWidth onClick={()=> {
+                onCreate()
+   
+              }} >Começar agora</Button> )
           }
+          
       </Stack>
     </Container>
  
@@ -253,8 +310,8 @@ function Plugin(props: { greeting: string }) {
     <Modal closeButtonPosition="left" noTransition onCloseButtonClick={handleCloseButtonClick} open={open} position="left" title={`Editar Pages (${value})`}>
        {value === 'Social Media'? modalSocialMedia() : value === 'Landing Page' ?  modalLandingPage(): modalEmail()}
       </Modal>
-
       <VerticalSpace space='medium' />
+
     </div>
   )
 }

@@ -16,9 +16,10 @@
         children: any
         investida: any
         inputValue: any
+        className: any
     }
 
-    function Card ({children, investida, inputValue}: CardProps){
+    function Card ({children, investida, inputValue, className}: CardProps){
         const isAbrahao = investida === 'Abrahão'
         const isCoalize = investida === 'Coalize'
         const isTyping = inputValue.length > 0
@@ -30,11 +31,11 @@
         }
 
         return (
-            <div style={styleCover()}>
+            <div style={styleCover()} className={className}>
                 {isTyping && (isAbrahao ? <LogotypeAbrahao />: isCoalize ? <LogotypeCoalize/> :  <LogotypeCoalize/>)}
                 {isTyping && (isCoalize && <CoalizeGrafismo/>)}
-                {(inputValue.length < 1) && <Empty/>}
-            <span className={isTyping ? (isCoalize? styles.coverTitleCoalize : isAbrahao? styles.coverTitleAbrahao: ''  ) : '' } style={{color: '#AAAAAA', bottom: 32, position: 'absolute'}}>{children} </span>
+                {(inputValue.length < 1) && <Empty className={styles.animacao}/>}
+                <span className={isTyping ? (isCoalize? styles.coverTitleCoalize : isAbrahao? styles.coverTitleAbrahao: ''  ) : `${styles['title-before-preview']}` } >{children} </span>
 
             </div>
         )

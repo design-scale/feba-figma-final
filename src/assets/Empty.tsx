@@ -1,8 +1,12 @@
 // LogotypeAbrahao.jsx
 import { h } from 'preact';
 
-const Empty = () => (
-    <div style={{position: 'absolute', top: 8, right: 72}}>
+type EmptyProps = { 
+    className?: any
+}
+
+const Empty = ({className}: EmptyProps) => (
+    <div className={className} style={{position: 'absolute', top: 8, right: 72}}>
 
 <svg width="130" height="92" viewBox="0 0 130 92" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path opacity="0.8" fill-rule="evenodd" clip-rule="evenodd" d="M46 10.9045H14C11.1858 10.9045 8.90446 13.1858 8.90446 16V71C8.90446 73.8142 11.1858 76.0955 14 76.0955H31V77H14C10.6863 77 8 74.3137 8 71V16C8 12.6863 10.6863 10 14 10H46C49.3137 10 52 12.6863 52 16V18H51.0955V16C51.0955 13.1858 48.8142 10.9045 46 10.9045Z" fill="#9C9C9C" fill-opacity="0.37"/>
